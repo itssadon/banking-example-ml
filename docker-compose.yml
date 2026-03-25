@@ -28,6 +28,6 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
     ports:
-      - "5432:5432"
+      - "5432:5432" #make sure you change to 5433 if you have postgres installed locally
 volumes:
   pgdata:
