@@ -1,11 +1,13 @@
 const Deposit = require('../../infrastructure/models/Deposit');
 const AccountHolderService = require('../../services/AccountHolderService');
-
+const DepositService = require('../../services/DepositService');
+const accountHolderService = new AccountHolderService();
+const depositService = new DepositService();
 module.exports = {
 	async getAccountHolderByID(req, res) {
 		try {
       const { accountHolderID } = req.params;
-      const result = await AccountHolderService.getAccountHolderByID(accountHolderID);
+      const result = await accountHolderService.getAccountHolderByID(accountHolderID);
       return res.send({
         status: 'success',
         body: result || {}
@@ -20,7 +22,7 @@ module.exports = {
 	async getAccountHolderDeposits(req, res) {
 		try {
       const { accountHolderID } = req.params;
-      const result = await Deposit.query().where({ accountHolderID });
+      const result = await depositService.getDepositsByAccountHolderID(accountHolderID);
 
       return res.send({
         status: 'success',
@@ -36,10 +38,7 @@ module.exports = {
   },
 	async createAccountHolderDeposit(req, res) {
 		try {
-      const { accountHolderID } = await Deposit.query().insert({
-        accountHolderID: req.params.accountHolderID,
-        amount: req.query.amount
-      }).returning('*');
+      const { accountHolderID } = await depositService.createDeposit(req.params.accountHolderID, req.query.amount);
 
       return res.status(201).send({
         status: 'success',
