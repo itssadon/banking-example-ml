@@ -1,11 +1,11 @@
-const AccountHolder = require('../../infrastructure/models/AccountHolder')
-const Deposit = require('../../infrastructure/models/Deposit')
+const Deposit = require('../../infrastructure/models/Deposit');
+const AccountHolderService = require('../../services/AccountHolderService');
 
 module.exports = {
 	async getAccountHolderByID(req, res) {
 		try {
       const { accountHolderID } = req.params;
-      const result = await AccountHolder.query().findById(accountHolderID).withGraphFetched('deposits')
+      const result = await AccountHolderService.getAccountHolderByID(accountHolderID);
       return res.send({
         status: 'success',
         body: result || {}
@@ -21,7 +21,7 @@ module.exports = {
 		try {
       const { accountHolderID } = req.params;
       const result = await Deposit.query().where({ accountHolderID });
-      
+
       return res.send({
         status: 'success',
         body: result || {}
