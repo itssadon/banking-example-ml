@@ -1,6 +1,6 @@
 const DepositRepository = require('../infrastructure/repository/DepositRepository');
 
-export class DepositService {
+class DepositService {
     constructor() {
         this.depositRepository = new DepositRepository();
     }
@@ -17,3 +17,5 @@ export class DepositService {
         return await this.depositRepository.createDeposit(accountHolderID, amount);
     }
 }
+
+module.exports = DepositService;
