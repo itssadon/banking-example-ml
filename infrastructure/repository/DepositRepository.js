@@ -1,6 +1,6 @@
 const Deposit = require('../models/Deposit');
 
-export class DeposityRepository {
+class DeposityRepository {
     constructor() {
         this.deposit = Deposit;
     }
@@ -20,3 +20,5 @@ export class DeposityRepository {
         }).returning('*');
     }
 }
+
+module.exports = DeposityRepository;
