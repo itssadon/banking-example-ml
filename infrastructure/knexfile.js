@@ -20,7 +20,8 @@ module.exports = {
       database: 'example',
       user : 'admin',
       password : 'admin',
-      host: 'localhost'
+      host: 'localhost',
+      port: 5432 // change to 5433 if you have postgres installed locally
     },
     pool: {
       min: 2,
