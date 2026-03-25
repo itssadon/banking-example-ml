@@ -1,8 +1,8 @@
-const Deposit = require('../../infrastructure/models/Deposit');
 const AccountHolderService = require('../../services/AccountHolderService');
 const DepositService = require('../../services/DepositService');
 const accountHolderService = new AccountHolderService();
 const depositService = new DepositService();
+
 module.exports = {
 	async getAccountHolderByID(req, res) {
 		try {
