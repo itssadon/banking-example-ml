@@ -1,5 +1,4 @@
 const AccountHolder = require('../models/AccountHolder');
-const Deposit = require('../models/Deposit');
 
 class AccountHolderRepository {
     async getAccountHolderByID(accountHolderID) {
