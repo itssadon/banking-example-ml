@@ -4,9 +4,11 @@ const Deposit = require('../../infrastructure/models/Deposit')
 module.exports = {
 	async getAccountHolderByID(req, res) {
 		try {
+      const { accountHolderID } = req.params;
+      const result = await AccountHolder.query().findById(accountHolderID).withGraphFetched('deposits')
       return res.send({
         status: 'success',
-        body: await AccountHolder.query().findById(req.params.accountHolderID).withGraphFetched('deposits') || null
+        body: result || {}
       });
     } catch (error) {
       console.log('Error', error.message)
