@@ -42,5 +42,12 @@ When you see something should be improved / done differently, feel free to do th
 - Add sample content
 
     `knex seed:run --knexfile ./infrastructure/knexfile.js --env localhost`
+- Install Just for chain command running (optional)
+
+    Windows: `winget install Casey.Just`
+
+    Mac: `brew install just`
+
+    `just chaching` (if you have it installed) runs all the commands from docker-compose down, to up and then migrations and seeds
 
 - Project should be listening on port `2525`!
