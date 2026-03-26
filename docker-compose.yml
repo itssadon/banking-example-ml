@@ -19,13 +19,15 @@ services:
       - db_retry_time=3000
   my_service_db:
     container_name: my_service_db
-    image: postgres
+    image: postgres:latest
+    # image: postgres
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=example
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
-    image: postgres:latest
     ports:
-      - "5432:5432"
+      - "5432:5432" #make sure you change to 5433 if you have postgres installed locally
+volumes:
+  pgdata:

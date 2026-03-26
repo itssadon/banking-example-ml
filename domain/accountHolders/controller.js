@@ -1,47 +1,25 @@
-const AccountHolder = require('../../infrastructure/models/AccountHolder')
-const Deposit = require('../../infrastructure/models/Deposit')
-
+const AccountHolderService = require('../../services/AccountHolderService');
+const DepositService = require('../../services/DepositService');
+const accountHolderService = new AccountHolderService();
+const depositService = new DepositService();
+const ResponseHandler = require('../../core/utils/ResponseHandler')
 module.exports = {
 	async getAccountHolderByID(req, res) {
 		try {
-      return res.send({
-        status: 'success',
-        body: await AccountHolder.query().findById(req.params.accountHolderID).withGraphFetched('deposits') || null
-      });
+      const { accountHolderID } = req.params;
+      const result = await accountHolderService.getAccountHolderByID(accountHolderID);
+      ResponseHandler.successResponse(res, result);
     } catch (error) {
-      console.log('Error', error.message)
-      return res.status(400).send({
-        status: 'failure'
-      });
+      ResponseHandler.errorResponse(res, error);
     }
   },
 	async getAccountHolderDeposits(req, res) {
 		try {
-      return res.send({
-        status: 'success',
-        body: await Deposit.query().where({ accountHolderID: req.params.accountHolderID })
-      });
+      const { accountHolderID } = req.params;
+      const result = await depositService.getDepositsByAccountHolderID(accountHolderID);
+      ResponseHandler.successResponse(res, result);
     } catch (error) {
-      console.log('Error', error.message)
-      return res.status(400).send({
-        status: 'failure'
-      });
+      ResponseHandler.errorResponse(res, error);
     }
-  },
-	async createAccountHolderDeposit(req, res) {
-		try {
-      return res.send({
-        status: 'success',
-        body: await Deposit.query().insert({
-          accountHolderID: req.params.accountHolderID,
-          amount: req.query.amount
-        }).returning('*')
-      });
-    } catch (error) {
-      console.log('Error', error.message)
-      return res.status(400).send({
-        status: 'failure'
-      });
-    }
-  },
+  }
 };
