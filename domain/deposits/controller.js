@@ -2,6 +2,7 @@ const Deposit = require('../../infrastructure/models/Deposit')
 const DepositService = require('../../services/DepositService')
 const depositService = new DepositService();
 const ResponseHandler = require('../../core/utils/ResponseHandler')
+const { createDepositSchema } = require('./dto');
 module.exports = {
 	async getDepositByID(req, res) {
 		try {
@@ -28,6 +29,7 @@ module.exports = {
 			const { accountHolderID } = req.params;
 			const { amount } = req.query;
 			const numAmount = Number(amount);
+			createDepositSchema.parse({ accountHolderID, amount: numAmount });
 			const result = await depositService.createDeposit(accountHolderID, numAmount);
 			ResponseHandler.createdResponse(res, result);
 		} catch (error) {

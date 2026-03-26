@@ -21,13 +21,5 @@ module.exports = {
     } catch (error) {
       ResponseHandler.errorResponse(res, error);
     }
-  },
-	async createAccountHolderDeposit(req, res) {
-		try {
-      const { accountHolderID } = await depositService.createDeposit(req.params.accountHolderID, req.query.amount);
-      ResponseHandler.createdResponse(res, { accountHolderID });
-    } catch (error) {
-      ResponseHandler.errorResponse(res, error);
-    }
-  },
+  }
 };

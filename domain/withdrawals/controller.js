@@ -1,5 +1,6 @@
 const ResponseHandler = require('../../core/utils/ResponseHandler')
 const WithdrawalService = require('../../services/WithdrawalService');
+const { createWithdrawalSchema } = require('./dto');
 const withdrawalService = new WithdrawalService();
 module.exports = {
 
@@ -28,6 +29,7 @@ module.exports = {
 			const { accountHolderID } = req.params;
 			const { amount } = req.query;
 			const numAmount = Number(amount);
+			createWithdrawalSchema.parse({ accountHolderID, amount: numAmount });
 			const result = await withdrawalService.makeWithdrawal(accountHolderID, numAmount);
 			ResponseHandler.successResponse(res, result);
 		}catch(error){
